@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLearning.web", "WebLearning.web\WebLearning.web.csproj", "{C90F94FB-BC3D-46AC-B285-AF66BC3F8FFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLearning.logic", "WebLearning.logic\WebLearning.logic.csproj", "{93E25CB8-9AEF-4EEA-9968-204A58548E6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C90F94FB-BC3D-46AC-B285-AF66BC3F8FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C90F94FB-BC3D-46AC-B285-AF66BC3F8FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C90F94FB-BC3D-46AC-B285-AF66BC3F8FFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93E25CB8-9AEF-4EEA-9968-204A58548E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93E25CB8-9AEF-4EEA-9968-204A58548E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93E25CB8-9AEF-4EEA-9968-204A58548E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93E25CB8-9AEF-4EEA-9968-204A58548E6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
