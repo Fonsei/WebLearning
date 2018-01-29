@@ -26,7 +26,7 @@ namespace WebLearning.logic
             Debug.WriteLine("UserVerwaltung - RegisterUser");
             Debug.Indent();
             bool erfolgreich = false;
-            if (nickname == "Fonsei")
+            if (email == "Fonsei")
                 erfolgreich = true;
             Debug.Unindent();
             return erfolgreich;

@@ -6,15 +6,17 @@ using System.Web;
 using System.Web.Mvc;
 using WebLearning.web.Models.User;
 using WebLearning.logic;
+using System.Web.Security;
 
 namespace WebLearning.web.Controllers
 {
     public class WebLearningController : Controller
     {
-        // GET: WebLearning
-        public ActionResult Index()
+        [HttpGet]
+        [Authorize]
+        public ActionResult Dashboard()
         {
-            Debug.WriteLine("GET - WebLearningController - Index");
+            Debug.WriteLine("GET - WebLearningController - Dashboard");
             Debug.Indent();
 
             Debug.Unindent();
@@ -32,6 +34,7 @@ namespace WebLearning.web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginUserModel model)
         {
             Debug.WriteLine("POST - WebLearningController - Login");
@@ -42,14 +45,30 @@ namespace WebLearning.web.Controllers
                 if (UserVerwaltung.Login(model.Nickname, model.Email, model.Password))
                 {
                     Debug.WriteLine("Erfolgreich Eingeloggt");
-                    return RedirectToAction("Home");
+                    FormsAuthentication.SetAuthCookie(model.Email.ToUpper(), true);
+                    return RedirectToAction("Dashboard","WebLearning");
                 }
-                Debug.WriteLine("Registrierung Fehlgeschlagen");
-                return View();
+                else
+                {
+                    Debug.WriteLine("Registrierung Fehlgeschlagen");
+                    ModelState.AddModelError("Password", "Ungültiger Benutzername/Passwort!");
+                    return View();
+                }
             }
             Debug.WriteLine("Registermodel ist nicht Vaild");
             Debug.Unindent();
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Loggout()
+        {
+            Debug.WriteLine("POST - WebLearningController - Loggout");
+            Debug.Indent();
+            FormsAuthentication.SignOut();
+            Debug.WriteLine("Erfolgreich Ausgeloggt");
+            Debug.Unindent();
+            return RedirectToAction("Index","Home");
         }
 
         [HttpGet]

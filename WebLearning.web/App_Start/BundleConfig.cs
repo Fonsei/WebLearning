@@ -25,8 +25,7 @@ namespace WebLearning.web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
-                      "~/Content/site.css",
-                      "~/Content/signin.css"));
+                      "~/Content/site.css"));
         }
     }
 }

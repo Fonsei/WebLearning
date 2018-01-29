@@ -15,7 +15,6 @@ namespace WebLearning.web.Models.User
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
         [Display(Name = "Username")]
         public string Nickname { get; set; }
 
