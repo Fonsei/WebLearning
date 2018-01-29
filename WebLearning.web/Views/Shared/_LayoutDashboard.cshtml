@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model WebLearning.web.Models.User.DashboardModel
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -20,13 +22,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>*@
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>*@
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Fonsei", "Profil", "WebLearning")</li>
-                    <li>@Html.ActionLink("Loggout", "Loggout", "WebLearning")</li>
+                    <li>@Html.ActionLink(Model.Nickname, "Profil", "WebLearning")</li>
+                    <li>@Html.ActionLink("Logout", "Logout", "WebLearning")</li>
                 </ul>
             </div>
         </div>

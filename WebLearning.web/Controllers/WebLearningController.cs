@@ -18,9 +18,15 @@ namespace WebLearning.web.Controllers
         {
             Debug.WriteLine("GET - WebLearningController - Dashboard");
             Debug.Indent();
+            Benutzer user = (Benutzer)Session["User"];
+
+            DashboardModel model = new DashboardModel();
+            model.IDUser = Convert.ToInt32(user.ID);
+            model.Nickname = user.Nickname;
+
 
             Debug.Unindent();
-            return View();
+            return View(model);
         }
 
         [HttpGet]
@@ -44,8 +50,19 @@ namespace WebLearning.web.Controllers
                 Debug.WriteLine("LoginUser ist Vaild");
                 if (UserVerwaltung.Login(model.Nickname, model.Email, model.Password))
                 {
+                    Benutzer user = UserVerwaltung.AktUser(model.Email);
                     Debug.WriteLine("Erfolgreich Eingeloggt");
-                    FormsAuthentication.SetAuthCookie(model.Email.ToUpper(), true);
+                    FormsAuthentication.SetAuthCookie(model.Nickname, true);
+                    //Response.Cookies.Add(new HttpCookie("Benutzer", model.Nickname.ToString()));
+                    //Response.Cookies.Add(new HttpCookie("ID", model.ID.ToString()));
+
+                    Session["User"] = user;
+                    HttpCookie myCookie = new HttpCookie("WebLearning");
+                    myCookie["ID"] = user.ID.ToString();
+                    myCookie["Nickname"] = user.Nickname.ToString();
+                    myCookie.Expires = DateTime.Now.AddDays(1d);
+                    Response.Cookies.Add(myCookie);
+
                     return RedirectToAction("Dashboard","WebLearning");
                 }
                 else
@@ -61,11 +78,14 @@ namespace WebLearning.web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Loggout()
+        public ActionResult Logout()
         {
             Debug.WriteLine("POST - WebLearningController - Loggout");
             Debug.Indent();
-            FormsAuthentication.SignOut();
+            Session["User"] = null;
+            HttpCookie myCookie = new HttpCookie("WebLearning");
+            myCookie.Expires = DateTime.Now.AddDays(-1d);
+            Response.Cookies.Add(myCookie);
             Debug.WriteLine("Erfolgreich Ausgeloggt");
             Debug.Unindent();
             return RedirectToAction("Index","Home");
@@ -92,7 +112,7 @@ namespace WebLearning.web.Controllers
                 if (UserVerwaltung.Register(model.Nickname,model.Email,model.Password,model.PasswordRepeat,model.Username,model.Birthday))
                 {
                     Debug.WriteLine("Erfolgreich Registriert");
-                    return RedirectToAction("Home");
+                    return RedirectToAction("Login");
                 }
                 Debug.WriteLine("Registrierung Fehlgeschlagen");
                 return View();

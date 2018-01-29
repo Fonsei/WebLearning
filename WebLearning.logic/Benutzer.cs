@@ -19,5 +19,7 @@ namespace WebLearning.logic
         public string Username { get; set; }
         public string Passwort { get; set; }
         public string Email { get; set; }
+        public Nullable<System.DateTime> Geburtstag { get; set; }
+        public Nullable<System.DateTime> LastLogin { get; set; }
     }
 }
