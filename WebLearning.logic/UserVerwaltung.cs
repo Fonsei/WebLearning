@@ -21,7 +21,7 @@ namespace WebLearning.logic
             return erfolgreich;
         }
 
-        public static bool Login(string nickname, string email, string password, string password2, string Username, DateTime birthday)
+        public static bool Login(string nickname, string email, string password)
         {
             Debug.WriteLine("UserVerwaltung - RegisterUser");
             Debug.Indent();

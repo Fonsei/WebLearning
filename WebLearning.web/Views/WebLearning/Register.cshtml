@@ -1,10 +1,10 @@
-﻿@model WebLearning.web.Models.User.RegisterUser
+﻿@model WebLearning.web.Models.User.RegisterUserModel
 
 @{
     ViewBag.Title = "Register";
 }
 
-<h2>Registrierung</h2>
+<h2>Register</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Formular</h4>
+        <h4>RegisterUserModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -71,9 +71,9 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Startseite", "Index")
-</div>
+    <div>
+        @Html.ActionLink("Zurück", "Index", "Home")
+    </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
