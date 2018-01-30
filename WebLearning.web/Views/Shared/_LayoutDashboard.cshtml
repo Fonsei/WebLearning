@@ -8,9 +8,36 @@
     <title>@ViewBag.Title - WebLearning</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Content/dashboard.css" rel="stylesheet">
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
+                    <span class="sr-only">Navigation ein-/ausblenden</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">WebLearning</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Einstellungen</a></li>
+                    <li><a href="#">Profil</a></li>
+                    <li><a href="#">@Model.Nickname</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Suchen...">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -20,20 +47,20 @@
                 </button>
                 @Html.ActionLink("WebLearning", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                @*<ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>*@
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink(Model.Nickname, "Profil", "WebLearning")</li>
-                    <li>@Html.ActionLink("Logout", "Logout", "WebLearning")</li>
-                </ul>
+            <div class="navbar-collapse collapse">*@
+    @*<ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li>@Html.ActionLink("About", "About", "Home")</li>
+            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+        </ul>*@
+    @*<ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink(Model.Nickname, "Profil", "WebLearning")</li>
+                        <li>@Html.ActionLink("Logout", "Logout", "WebLearning")</li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="container body-content">
+        </div>*@
+    <div class="container-fluid">
         @RenderBody()
         <hr />
         <footer>
@@ -42,7 +69,10 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+            @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>*@
+    <script src="~/Scripts/holder.min.js"></script>
 </body>
 </html>

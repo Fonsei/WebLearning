@@ -12,13 +12,16 @@ namespace WebLearning.web.Controllers
 {
     public class WebLearningController : Controller
     {
+        public static Benutzer user;
+
         [HttpGet]
         [Authorize]
         public ActionResult Dashboard()
         {
             Debug.WriteLine("GET - WebLearningController - Dashboard");
             Debug.Indent();
-            Benutzer user = (Benutzer)Session["User"];
+            if(user == null)
+                user = (Benutzer)Session["User"];
 
             DashboardModel model = new DashboardModel();
             model.IDUser = Convert.ToInt32(user.ID);
@@ -86,6 +89,7 @@ namespace WebLearning.web.Controllers
             HttpCookie myCookie = new HttpCookie("WebLearning");
             myCookie.Expires = DateTime.Now.AddDays(-1d);
             Response.Cookies.Add(myCookie);
+            user = null;
             Debug.WriteLine("Erfolgreich Ausgeloggt");
             Debug.Unindent();
             return RedirectToAction("Index","Home");
