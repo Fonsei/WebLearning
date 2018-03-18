@@ -17,8 +17,59 @@
           <Property Name="Geburtstag" Type="date" />
           <Property Name="LastLogin" Type="datetime" />
         </EntityType>
+        <EntityType Name="UserModul">
+          <Key>
+            <PropertyRef Name="IDModul" />
+          </Key>
+          <Property Name="IDModul" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDUserSubject" Type="int" />
+          <Property Name="ModulName" Type="varchar" MaxLength="100" />
+          <Property Name="ModulDate" Type="date" />
+        </EntityType>
+        <EntityType Name="UserSubject">
+          <Key>
+            <PropertyRef Name="IDSubject" />
+          </Key>
+          <Property Name="IDSubject" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDBenutzer" Type="int" />
+          <Property Name="SubjectName" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <Association Name="FK__UserModul__IDUse__286302EC">
+          <End Role="UserSubject" Type="Self.UserSubject" Multiplicity="0..1" />
+          <End Role="UserModul" Type="Self.UserModul" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserSubject">
+              <PropertyRef Name="IDSubject" />
+            </Principal>
+            <Dependent Role="UserModul">
+              <PropertyRef Name="IDUserSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserSubje__IDBen__25869641">
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="0..1" />
+          <End Role="UserSubject" Type="Self.UserSubject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benutzer">
+              <PropertyRef Name="IDClient" />
+            </Principal>
+            <Dependent Role="UserSubject">
+              <PropertyRef Name="IDBenutzer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="WebLearningModelStoreContainer">
           <EntitySet Name="Benutzer" EntityType="Self.Benutzer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserModul" EntityType="Self.UserModul" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSubject" EntityType="Self.UserSubject" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__UserModul__IDUse__286302EC" Association="Self.FK__UserModul__IDUse__286302EC">
+            <End Role="UserSubject" EntitySet="UserSubject" />
+            <End Role="UserModul" EntitySet="UserModul" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserSubje__IDBen__25869641" Association="Self.FK__UserSubje__IDBen__25869641">
+            <End Role="Benutzer" EntitySet="Benutzer" />
+            <End Role="UserSubject" EntitySet="UserSubject" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -35,10 +86,65 @@
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Geburtstag" Type="DateTime" Precision="0" />
           <Property Name="LastLogin" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserSubject" Relationship="WebLearningModel.FK__UserSubje__IDBen__36B12243" FromRole="Benutzer" ToRole="UserSubject" />
         </EntityType>
         <EntityContainer Name="WebLearningEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AlleBenutzer" EntityType="Self.Benutzer" />
+          <EntitySet Name="AlleUserModul" EntityType="WebLearningModel.UserModul" />
+          <EntitySet Name="AlleUserSubject" EntityType="WebLearningModel.UserSubject" />
+          <AssociationSet Name="FK__UserSubje__IDBen__36B12243" Association="WebLearningModel.FK__UserSubje__IDBen__36B12243">
+            <End Role="Benutzer" EntitySet="AlleBenutzer" />
+            <End Role="UserSubject" EntitySet="AlleUserSubject" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserModul__IDUse__398D8EEE" Association="WebLearningModel.FK__UserModul__IDUse__398D8EEE">
+            <End Role="UserSubject" EntitySet="AlleUserSubject" />
+            <End Role="UserModul" EntitySet="AlleUserModul" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="UserModul">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDUserSubject" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="UserSubject" Relationship="WebLearningModel.FK__UserModul__IDUse__398D8EEE" FromRole="UserModul" ToRole="UserSubject" />
+        </EntityType>
+        <EntityType Name="UserSubject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDBenutzer" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Benutzer" Relationship="WebLearningModel.FK__UserSubje__IDBen__36B12243" FromRole="UserSubject" ToRole="Benutzer" />
+          <NavigationProperty Name="UserModul" Relationship="WebLearningModel.FK__UserModul__IDUse__398D8EEE" FromRole="UserSubject" ToRole="UserModul" />
+        </EntityType>
+        <Association Name="FK__UserSubje__IDBen__36B12243">
+          <End Type="WebLearningModel.Benutzer" Role="Benutzer" Multiplicity="0..1" />
+          <End Type="WebLearningModel.UserSubject" Role="UserSubject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benutzer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserSubject">
+              <PropertyRef Name="IDBenutzer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserModul__IDUse__398D8EEE">
+          <End Type="WebLearningModel.UserSubject" Role="UserSubject" Multiplicity="0..1" />
+          <End Type="WebLearningModel.UserModul" Role="UserModul" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserSubject">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserModul">
+              <PropertyRef Name="IDUserSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -55,6 +161,25 @@
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Passwort" ColumnName="Passwort" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlleUserModul">
+            <EntityTypeMapping TypeName="WebLearningModel.UserModul">
+              <MappingFragment StoreEntitySet="UserModul">
+                <ScalarProperty Name="Date" ColumnName="ModulDate" />
+                <ScalarProperty Name="Name" ColumnName="ModulName" />
+                <ScalarProperty Name="IDUserSubject" ColumnName="IDUserSubject" />
+                <ScalarProperty Name="ID" ColumnName="IDModul" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlleUserSubject">
+            <EntityTypeMapping TypeName="WebLearningModel.UserSubject">
+              <MappingFragment StoreEntitySet="UserSubject">
+                <ScalarProperty Name="Name" ColumnName="SubjectName" />
+                <ScalarProperty Name="IDBenutzer" ColumnName="IDBenutzer" />
+                <ScalarProperty Name="ID" ColumnName="IDSubject" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

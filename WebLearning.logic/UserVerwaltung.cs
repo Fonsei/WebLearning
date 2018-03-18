@@ -60,7 +60,7 @@ namespace WebLearning.logic
             return erfolgreich;
         }
 
-        public static bool Login(string nickname, string email, string password)
+        public static bool Login(string email, string password)
         {
             Debug.WriteLine("UserVerwaltung - RegisterUser");
             Debug.Indent();
@@ -124,6 +124,44 @@ namespace WebLearning.logic
             var bytes = new UTF8Encoding().GetBytes(password);
             var hashBytes = System.Security.Cryptography.MD5.Create().ComputeHash(bytes);
             return Convert.ToBase64String(hashBytes);
+        }
+
+        public static Benutzer CurrentUser(string email)
+        {
+            Debug.WriteLine("UserVerwaltung - CurrentUser");
+            Debug.Indent();
+
+            Benutzer currentUser = null;
+
+            try
+            {
+                using (var Context = new WebLearningEntities())
+                {
+                    currentUser = Context.AlleBenutzer.Where(m => m.Email == email).FirstOrDefault();
+
+                    if (currentUser != null)
+                    {
+                        Debug.WriteLine("User Gefunden");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Kein User Gefunden");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in CurrentUser");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+
+
+            Debug.Unindent();
+            return currentUser;
         }
     }
 }

@@ -12,23 +12,20 @@ namespace WebLearning.logic
     using System;
     using System.Collections.Generic;
     
-    public partial class Benutzer
+    public partial class UserSubject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Benutzer()
+        public UserSubject()
         {
-            this.UserSubject = new HashSet<UserSubject>();
+            this.UserModul = new HashSet<UserModul>();
         }
     
         public int ID { get; set; }
-        public string Nickname { get; set; }
-        public string Username { get; set; }
-        public string Passwort { get; set; }
-        public string Email { get; set; }
-        public Nullable<System.DateTime> Geburtstag { get; set; }
-        public Nullable<System.DateTime> LastLogin { get; set; }
+        public Nullable<int> IDBenutzer { get; set; }
+        public string Name { get; set; }
     
+        public virtual Benutzer Benutzer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserSubject> UserSubject { get; set; }
+        public virtual ICollection<UserModul> UserModul { get; set; }
     }
 }

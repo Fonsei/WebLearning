@@ -26,7 +26,7 @@ namespace WebLearning.logic
         }
     
         public virtual DbSet<Benutzer> AlleBenutzer { get; set; }
-
-        
+        public virtual DbSet<UserModul> AlleUserModul { get; set; }
+        public virtual DbSet<UserSubject> AlleUserSubject { get; set; }
     }
 }

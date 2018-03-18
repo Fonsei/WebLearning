@@ -15,9 +15,6 @@ namespace WebLearning.web.Models.User
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Display(Name = "Username")]
-        public string Nickname { get; set; }
-
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Passwort")]

@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using WebLearning.web.Models.User;
 using WebLearning.logic;
 using System.Web.Security;
+using WebLearning.web.Models;
+using WebLearning.web.Models.Tasks;
 
 namespace WebLearning.web.Controllers
 {
@@ -27,9 +29,23 @@ namespace WebLearning.web.Controllers
             model.IDUser = Convert.ToInt32(user.ID);
             model.Nickname = user.Nickname;
 
+            model.Aktuelles = 2;
+            model.Community = 13;
+            model.Message = 0;
+            model = TestDaten.LadeDaten(model,"fonsei1988@msn.com");
+            if (model.Fach == null)
+                model.Fach = new List<Subject>();
 
             Debug.Unindent();
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult CreateSubject()
+        {
+
+            return Content("Hello Ajax", "text/plain");
+            //return View();
         }
 
         [HttpGet]
@@ -48,14 +64,16 @@ namespace WebLearning.web.Controllers
         {
             Debug.WriteLine("POST - WebLearningController - Login");
             Debug.Indent();
+
+
             if (ModelState.IsValid)
             {
                 Debug.WriteLine("LoginUser ist Vaild");
-                if (UserVerwaltung.Login(model.Nickname, model.Email, model.Password))
+                if (UserVerwaltung.Login(model.Email, model.Password))
                 {
                     Benutzer user = UserVerwaltung.AktUser(model.Email);
                     Debug.WriteLine("Erfolgreich Eingeloggt");
-                    FormsAuthentication.SetAuthCookie(model.Nickname, true);
+                    FormsAuthentication.SetAuthCookie(model.Email, true);
                     //Response.Cookies.Add(new HttpCookie("Benutzer", model.Nickname.ToString()));
                     //Response.Cookies.Add(new HttpCookie("ID", model.ID.ToString()));
 
@@ -70,7 +88,7 @@ namespace WebLearning.web.Controllers
                 }
                 else
                 {
-                    Debug.WriteLine("Registrierung Fehlgeschlagen");
+                    Debug.WriteLine("Login Fehlgeschlagen");
                     ModelState.AddModelError("Password", "Ungültiger Benutzername/Passwort!");
                     return View();
                 }

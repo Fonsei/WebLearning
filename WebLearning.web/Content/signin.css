@@ -15,7 +15,9 @@ body {
     justify-content: center;
     padding-top: 40px;
     padding-bottom: 40px;
-    background-color: #807f7f;
+    background: #807f7f url("Images/background1.jpg") no-repeat center fixed ;
+    background-size:1920px 1080px;
+    color:#ffffff;
 }
 
 .form-signin {
@@ -52,3 +54,16 @@ body {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
+
+    .h2{
+        color: #ffffff;
+    }
+
+    .label{
+        color:#000000;
+    }
+
+.text-danger-back {
+    background: #000000;
+    font-weight: bold;
+}

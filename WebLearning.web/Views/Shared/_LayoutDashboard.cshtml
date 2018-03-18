@@ -10,6 +10,8 @@
     @Scripts.Render("~/bundles/modernizr")
 
     <link href="~/Content/dashboard.css" rel="stylesheet">
+
+    
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -26,9 +28,18 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Einstellungen</a></li>
-                    <li><a href="#">Profil</a></li>
-                    <li><a href="#">@Model.Nickname</a></li>
+
+                    @*<li><a href="#">@Model.Nickname</a></li>*@
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            @Model.Nickname <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Einstellungen</a></li>
+                            <li><a href="#">Profil</a></li>
+                            <li>@Html.ActionLink("Logout", "Logout", "WebLearning")</li>
+                        </ul>
+                    </li>
                 </ul>
                 <form class="navbar-form navbar-right">
                     <input type="text" class="form-control" placeholder="Suchen...">
@@ -61,6 +72,41 @@
             </div>
         </div>*@
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-pills nav-sidebar">
+                    <li class="active"><a href="#">Überblick <span class="sr-only">(aktuell)</span><span class="badge">@Model.Aktuelles</span></a></li>
+                    <li><a href="#">Community<span class="badge">@Model.Community</span></a></li>
+                    <li><a href="#">Nachrichten<span class="badge">@Model.Message</span></a></li>
+                </ul>
+                <ul class="nav nav-sidebar">
+                    @*<li>@Html.ActionLink("NeuesFach", "CreateSubject", "WebLearning")</li>*@
+                    <li><a href="#" class="hello">Neues Fach</a></li>
+                </ul>
+                @if (Model.Fach.Count > 0)
+            {
+                foreach (var aktFach in Model.Fach)
+                {
+                    <p class="fachTitle">@aktFach.Name</p>
+                    <ul class="nav nav-sidebar">
+                        @foreach (var Modul in aktFach.ModulName)
+                    {
+                        <li><a href="">@Modul.Name</a></li>
+                }
+
+                    </ul>
+            }
+        }
+
+        @*<ul class="nav nav-sidebar">
+            <li><a href="">Noch ein Nav-Eintrag</a></li>
+            <li><a href="">Und noch einer</a></li>
+            <li><a href="">Anderer Nav-Eintrag</a></li>
+        </ul>*@
+            </div>
+        </div>
+        @*@Html.ActionLink("CreateSubject", "WebLearning")*@
+        <div id="result1"></div>
         @RenderBody()
         <hr />
         <footer>
@@ -69,10 +115,24 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-            @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>*@
+        <script src="~/Scripts/bootstrap.min.js"></script>*@
     <script src="~/Scripts/holder.min.js"></script>
+    <script type="text/javascript">
+        @*$(document).ready(function () {
+            $('.hello').click(function () {
+                //alert('Hello');
+                $.ajax({
+                    type: 'GET',
+                    url '@Url.Action("CreateSubject","WebLearning")',
+                    success: function (result) {
+                        $('#result1').html(result);
+                    }
+                })
+            })
+        })*@
+    </script>
 </body>
 </html>

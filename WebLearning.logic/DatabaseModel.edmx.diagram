@@ -6,6 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="51078d71564c4f1d94e9f79b4b6b31c7" Name="Diagram1">
         <EntityTypeShape EntityType="WebLearningModel.Benutzer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebLearningModel.UserModul" Width="1.5" PointX="5.875" PointY="1" />
+        <EntityTypeShape EntityType="WebLearningModel.UserSubject" Width="1.5" PointX="3.625" PointY="1" />
+        <AssociationConnector Association="WebLearningModel.FK__UserSubje__IDBen__36B12243" />
+        <AssociationConnector Association="WebLearningModel.FK__UserModul__IDUse__398D8EEE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
